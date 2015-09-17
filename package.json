@@ -1,11 +1,15 @@
 {
   "name": "generator-angular-app",
   "version": "0.1.0",
-  "description": "Generator for Angularjs webapp.",
+  "description": "Generator for Angularjs webapp",
   "keywords": [
     "yeoman-generator"
   ],
   "dependencies": {
+    "chalk": "^1.1.1",
+    "insight": "^0.6.0",
+    "mkdirp": "^0.5.1",
+    "underscore.string": "^3.2.2",
     "yeoman-generator": "^0.20.3"
   },
   "author": "Blaine",
