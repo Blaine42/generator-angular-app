@@ -1,0 +1,13 @@
+{
+  "name": "generator-angular-app",
+  "version": "0.1.0",
+  "description": "Generator for Angularjs webapp.",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^0.20.3"
+  },
+  "author": "Blaine",
+  "license": "ISC"
+}
