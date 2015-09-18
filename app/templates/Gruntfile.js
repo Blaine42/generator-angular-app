@@ -23,7 +23,7 @@ module.exports = function (grunt) {
         yeoman: {
             // configurable paths
             app: require('./bower.json').appPath || 'app',
-            dist: 'src/main/webapp/dist'
+            dist: './/dist'
         },
         watch: {
             bower: {
@@ -67,11 +67,11 @@ module.exports = function (grunt) {
             dev: {
                 bsFiles: {
                     src : [
-                        // 'src/main/webapp/**/*.html',
-                        // 'src/main/webapp/**/*.json',
-                        // 'src/main/webapp/assets/styles/**/*.css',
-                        // 'src/main/webapp/scripts/**/*.js',
-                        // 'src/main/webapp/assets/images/**/*.{png,jpg,jpeg,gif,webp,svg}',
+                        // './/**/*.html',
+                        // './/**/*.json',
+                        // './/assets/styles/**/*.css',
+                        // './/scripts/**/*.js',
+                        // './/assets/images/**/*.{png,jpg,jpeg,gif,webp,svg}',
                         // 'tmp/**/*.{css,js}'
                         './**/*.html',
                         './**/*.json',
@@ -134,7 +134,7 @@ module.exports = function (grunt) {
             }
         },
         useminPrepare: {
-            html: '/**/*.html',
+            html: './**/*.html',
             options: {
                 dest: '<%%= yeoman.dist %>',
                 flow: {
@@ -166,7 +166,7 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: 'src/main/webapp/assets/images',
+                    cwd: './/assets/images',
                     src: '**/*.{jpg,jpeg}', // we don't optimize PNG files as it doesn't work on Linux. If you are not on Linux, feel free to use '**/*.{png,jpg,jpeg}'
                     dest: '<%%= yeoman.dist %>/assets/images'
                 }]
@@ -176,7 +176,7 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: 'src/main/webapp/assets/images',
+                    cwd: './/assets/images',
                     src: '**/*.svg',
                     dest: '<%%= yeoman.dist %>/assets/images'
                 }]
@@ -187,7 +187,7 @@ module.exports = function (grunt) {
         },
         ngtemplates:    {
             dist: {
-                // cwd: 'src/main/webapp',
+                // cwd: './',
                 src: ['scripts/app/**/*.html', 'scripts/components/**/*.html',],
                 dest: '.tmp/templates/templates.js',
                 options: {
@@ -226,7 +226,7 @@ module.exports = function (grunt) {
                     expand: true,
                     dot: true,
                     flatten: true,
-                    cwd: 'src/main/webapp',
+                    cwd: './',
                     dest: '<%%= yeoman.dist %>/assets/fonts',
                     src: [
                       'bower_components/bootstrap/fonts/*.*'
@@ -237,7 +237,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     dot: true,
-                    cwd: 'src/main/webapp',
+                    cwd: './',
                     dest: '<%%= yeoman.dist %>',
                     src: [
                         '*.html',

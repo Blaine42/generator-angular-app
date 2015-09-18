@@ -9,7 +9,7 @@ module.exports = Generator;
 
 function Generator() {
     yeoman.generators.NamedBase.apply(this, arguments);
-    this.env.options.appPath = this.config.get('appPath') || 'src/main/webapp';
+    this.env.options.appPath = this.config.get('appPath') || './' /* || 'src/main/webapp'*/;
 }
 
 util.inherits(Generator, yeoman.generators.NamedBase);

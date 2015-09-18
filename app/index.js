@@ -271,7 +271,7 @@ Generator.prototype.app = function app() {
     this.engine = require('ejs').render;
     this.indexFile = this.engine(this.indexFile, this, {});
 
-	
+
 
     var appScripts = [
         'scripts/app/app.js',
@@ -386,7 +386,7 @@ Generator.prototype._injectDependenciesAndConstants = function _injectDependenci
             '\n ...and generate the Angular constants with:' /*+
             '\n' + chalk.yellow.bold('grunt ngconstant:dev')*/
         );
-    } 
+    }
     else {
         this.spawnCommand('grunt', [/*'ngconstant:dev',*/ 'wiredep']);
     }
