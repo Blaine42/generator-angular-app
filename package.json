@@ -7,6 +7,9 @@
   ],
   "dependencies": {
     "chalk": "^1.1.1",
+    "insight": "^0.6.0",
+    "mkdirp": "^0.5.1",
+    "underscore.string": "^3.2.2",
     "yeoman-generator": "^0.20.3"
   },
   "author": "Blaine",
