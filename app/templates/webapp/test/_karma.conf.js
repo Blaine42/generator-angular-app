@@ -39,6 +39,8 @@ module.exports = function (config) {
             '../scripts/app/app.js',
             '../scripts/app/**/*.js',
             '../scripts/components/**/*.{js,html}',
+
+            'spec/**/*.js'
         ],
 
 
@@ -50,6 +52,7 @@ module.exports = function (config) {
         },
 
         reporters: ['dots', 'jenkins', 'coverage', 'progress'],
+        //reporters: ['progress'],
 
         jenkinsReporter: {
             outputFile: 'build/test-results/karma/TESTS-results.xml'

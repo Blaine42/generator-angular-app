@@ -23,7 +23,7 @@ module.exports = function (grunt) {
         yeoman: {
             // configurable paths
             app: require('./bower.json').appPath || 'app',
-            dist: './/dist'
+            dist: './dist'
         },
         watch: {
             bower: {
@@ -46,7 +46,7 @@ module.exports = function (grunt) {
                 ]
             },
             test: {
-                src: 'spec/karma.conf.js',
+                src: 'test/karma.conf.js',
                 exclude: [/angular-i18n/, /angular-scenario/],
                 ignorePath: /\.\.\/\.\.\//, // remove ../../ from paths of injected javascripts
                 devDependencies: true,
@@ -75,7 +75,9 @@ module.exports = function (grunt) {
                         // 'tmp/**/*.{css,js}'
                         './**/*.html',
                         './**/*.json',
-                        './scripts/**/*.js'
+                        './assets/styles/**/*.css',
+                        './scripts/**/*.js',
+                        './assets/images/**/*.{png,jpg,jpeg,gif,webp,svg}'
                     ]
                 }
             },
@@ -97,8 +99,8 @@ module.exports = function (grunt) {
                     dot: true,
                     src: [
                         '.tmp',
-                        '<%= yeoman.dist %>/*',
-                        '!<%= yeoman.dist %>/.git*'
+                        '<%%= yeoman.dist %>/*',
+                        '!<%%= yeoman.dist %>/.git*'
                     ]
                 }]
             },
@@ -125,10 +127,10 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     src: [
-                        '<%= yeoman.dist %>/scripts/**/*.js',
-                        '<%= yeoman.dist %>/assets/styles/**/*.css',
-                        '<%= yeoman.dist %>/assets/images/**/*.{png,jpg,jpeg,gif,webp,svg}',
-                        '<%= yeoman.dist %>/assets/fonts/*'
+                        '<%%= yeoman.dist %>/scripts/**/*.js',
+                        '<%%= yeoman.dist %>/assets/styles/**/*.css',
+                        '<%%= yeoman.dist %>/assets/images/**/*.{png,jpg,jpeg,gif,webp,svg}',
+                        '<%%= yeoman.dist %>/assets/fonts/*'
                     ]
                 }
             }
@@ -136,7 +138,7 @@ module.exports = function (grunt) {
         useminPrepare: {
             html: './**/*.html',
             options: {
-                dest: '<%= yeoman.dist %>',
+                dest: '<%%= yeoman.dist %>',
                 flow: {
                     html: {
                         steps: {
@@ -149,17 +151,17 @@ module.exports = function (grunt) {
             }
         },
         usemin: {
-            html: ['<%= yeoman.dist %>/**/*.html'],
-            css: ['<%= yeoman.dist %>/assets/styles/**/*.css'],
-            js: ['<%= yeoman.dist %>/scripts/**/*.js'],
+            html: ['<%%= yeoman.dist %>/**/*.html'],
+            css: ['<%%= yeoman.dist %>/assets/styles/**/*.css'],
+            js: ['<%%= yeoman.dist %>/scripts/**/*.js'],
             options: {
-                assetsDirs: ['<%= yeoman.dist %>', '<%= yeoman.dist %>/assets/styles', '<%= yeoman.dist %>/assets/images', '<%= yeoman.dist %>/assets/fonts'],
+                assetsDirs: ['<%%= yeoman.dist %>', '<%%= yeoman.dist %>/assets/styles', '<%%= yeoman.dist %>/assets/images', '<%%= yeoman.dist %>/assets/fonts'],
                 patterns: {
                     js: [
                         [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
                     ]
                 },
-                dirs: ['<%= yeoman.dist %>']
+                dirs: ['<%%= yeoman.dist %>']
             }
         },
         imagemin: {
@@ -168,7 +170,7 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: './/assets/images',
                     src: '**/*.{jpg,jpeg}', // we don't optimize PNG files as it doesn't work on Linux. If you are not on Linux, feel free to use '**/*.{png,jpg,jpeg}'
-                    dest: '<%= yeoman.dist %>/assets/images'
+                    dest: '<%%= yeoman.dist %>/assets/images'
                 }]
             }
         },
@@ -178,7 +180,7 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: './/assets/images',
                     src: '**/*.svg',
-                    dest: '<%= yeoman.dist %>/assets/images'
+                    dest: '<%%= yeoman.dist %>/assets/images'
                 }]
             }
         },
@@ -193,7 +195,7 @@ module.exports = function (grunt) {
                 options: {
                     module: 'webappApp',
                     usemin: 'scripts/app.js',
-                    htmlmin: '<%= htmlmin.dist.options %>'
+                    htmlmin: '<%%= htmlmin.dist.options %>'
                 }
             }
         },
@@ -213,9 +215,9 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.dist %>',
+                    cwd: '<%%= yeoman.dist %>',
                     src: ['*.html'],
-                    dest: '<%= yeoman.dist %>'
+                    dest: '<%%= yeoman.dist %>'
                 }]
             }
         },
@@ -227,7 +229,7 @@ module.exports = function (grunt) {
                     dot: true,
                     flatten: true,
                     cwd: './',
-                    dest: '<%= yeoman.dist %>/assets/fonts',
+                    dest: '<%%= yeoman.dist %>/assets/fonts',
                     src: [
                       'bower_components/bootstrap/fonts/*.*'
                     ]
@@ -238,7 +240,7 @@ module.exports = function (grunt) {
                     expand: true,
                     dot: true,
                     cwd: './',
-                    dest: '<%= yeoman.dist %>',
+                    dest: '<%%= yeoman.dist %>',
                     src: [
                         '*.html',
                         'scripts/**/*.html',
@@ -248,7 +250,7 @@ module.exports = function (grunt) {
                 }, {
                     expand: true,
                     cwd: '.tmp/assets/images',
-                    dest: '<%= yeoman.dist %>/assets/images',
+                    dest: '<%%= yeoman.dist %>/assets/images',
                     src: [
                         'generated/*'
                     ]
@@ -265,7 +267,7 @@ module.exports = function (grunt) {
         },
         karma: {
             unit: {
-                configFile: 'spec/karma.conf.js',
+                configFile: 'test/karma.conf.js',
                 singleRun: true
             }
         },
@@ -306,7 +308,7 @@ module.exports = function (grunt) {
                 },
                 constants: {
                     ENV: 'dev',
-                    VERSION: '<%= yeoman.version %>'
+                    VERSION: '<%%= yeoman.version %>'
                 }
             },
             prod: {
@@ -315,7 +317,7 @@ module.exports = function (grunt) {
                 },
                 constants: {
                     ENV: 'prod',
-                    VERSION: '<%= yeoman.version %>'
+                    VERSION: '<%%= yeoman.version %>'
                 }
             }
         }
