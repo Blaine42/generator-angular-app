@@ -51,9 +51,15 @@ Generator.prototype.askFor = function askFor() {
             default: 'webapp'
         },
         {
+            type: 'confirm',
+            name: 'enableAdministration',
+            message: '(2/' + questions + ') Would you like to enable an administration?',
+            default: false
+        },
+        {
             type: 'list',
             name: 'authenticationType',
-            message: '(2/' + questions + ') Which *type* of authentication would you like to use?',
+            message: '(3/' + questions + ') Which *type* of authentication would you like to use?',
             choices: [
                 {
                     value: 'session',
@@ -73,12 +79,13 @@ Generator.prototype.askFor = function askFor() {
         {
             type: 'confirm',
             name: 'enableTranslation',
-            message: '(3/' + questions + ') Would you like to enable translation support with Angular Translate?',
+            message: '(4/' + questions + ') Would you like to enable translation support with Angular Translate?',
             default: true
         }
     ];
 
     this.baseName           = this.config.get('baseName');
+    this.enableAdministration = this.config.get('enableAdministration');
     this.enableTranslation  = this.config.get('enableTranslation'); // this is enabled by default to avoid conflicts for existing applications
     this.authenticationType = this.config.get('authenticationType');
 
@@ -102,6 +109,7 @@ Generator.prototype.askFor = function askFor() {
             }
 
             this.baseName = props.baseName;
+            this.enableAdministration = props.enableAdministration;
             this.enableTranslation = props.enableTranslation;
 			this.authenticationType = props.authenticationType;
 
@@ -226,29 +234,33 @@ Generator.prototype.app = function app() {
     this.copyHtml(webappDir + '/scripts/app/account/settings/settings.html', 'scripts/app/account/settings/settings.html');
     this.copyJs(webappDir + '/scripts/app/account/settings/_settings.js', 'scripts/app/account/settings/settings.js', this, {});
     this.template(webappDir + '/scripts/app/account/settings/_settings.controller.js', 'scripts/app/account/settings/settings.controller.js', this, {});
-    this.template(webappDir + '/scripts/app/admin/_admin.js', 'scripts/app/admin/admin.js', this, {});
-    this.copyHtml(webappDir + '/scripts/app/admin/audits/audits.html', 'scripts/app/admin/audits/audits.html');
-    this.copyJs(webappDir + '/scripts/app/admin/audits/_audits.js', 'scripts/app/admin/audits/audits.js', this, {});
-    this.template(webappDir + '/scripts/app/admin/audits/_audits.controller.js', 'scripts/app/admin/audits/audits.controller.js', this, {});
-    this.copyHtml(webappDir + '/scripts/app/admin/configuration/configuration.html', 'scripts/app/admin/configuration/configuration.html');
-    this.copyJs(webappDir + '/scripts/app/admin/configuration/_configuration.js', 'scripts/app/admin/configuration/configuration.js', this, {});
-    this.template(webappDir + '/scripts/app/admin/configuration/_configuration.controller.js', 'scripts/app/admin/configuration/configuration.controller.js', this, {});
-    this.copy(webappDir + '/scripts/app/admin/docs/docs.html', 'scripts/app/admin/docs/docs.html');
-    this.copyJs(webappDir + '/scripts/app/admin/docs/_docs.js', 'scripts/app/admin/docs/docs.js', this, {});
-    this.copyHtml(webappDir + '/scripts/app/admin/health/health.html', 'scripts/app/admin/health/health.html');
-    this.copyHtml(webappDir + '/scripts/app/admin/health/_health.modal.html', 'scripts/app/admin/health/health.modal.html');
-    this.copyJs(webappDir + '/scripts/app/admin/health/_health.js', 'scripts/app/admin/health/health.js', this, {});
-    this.template(webappDir + '/scripts/app/admin/health/_health.controller.js', 'scripts/app/admin/health/health.controller.js', this, {});
-    this.template(webappDir + '/scripts/app/admin/health/_health.modal.controller.js', 'scripts/app/admin/health/health.modal.controller.js', this, {});
-    this.copyHtml(webappDir + '/scripts/app/admin/logs/logs.html', 'scripts/app/admin/logs/logs.html');
-    this.copyJs(webappDir + '/scripts/app/admin/logs/_logs.js', 'scripts/app/admin/logs/logs.js', this, {});
-    this.template(webappDir + '/scripts/app/admin/logs/_logs.controller.js', 'scripts/app/admin/logs/logs.controller.js', this, {});
 
-    this.copyHtml(webappDir + '/scripts/app/admin/user-management/user-management.html', 'scripts/app/admin/user-management/user-management.html');
-    this.copyHtml(webappDir + '/scripts/app/admin/user-management/_user-management-detail.html', 'scripts/app/admin/user-management/user-management-detail.html');
-    this.copyJs(webappDir + '/scripts/app/admin/user-management/_user-management.js', 'scripts/app/admin/user-management/user-management.js', this, {});
-    this.template(webappDir + '/scripts/app/admin/user-management/_user-management.controller.js', 'scripts/app/admin/user-management/user-management.controller.js', this, {});
-    this.template(webappDir + '/scripts/app/admin/user-management/_user-management-detail.controller.js', 'scripts/app/admin/user-management/user-management-detail.controller.js', this, {});
+    if(this.enableAdministration) {
+        this.template(webappDir + '/scripts/app/admin/_admin.js', 'scripts/app/admin/admin.js', this, {});
+        this.copyHtml(webappDir + '/scripts/app/admin/audits/audits.html', 'scripts/app/admin/audits/audits.html');
+        this.copyJs(webappDir + '/scripts/app/admin/audits/_audits.js', 'scripts/app/admin/audits/audits.js', this, {});
+        this.template(webappDir + '/scripts/app/admin/audits/_audits.controller.js', 'scripts/app/admin/audits/audits.controller.js', this, {});
+        this.copyHtml(webappDir + '/scripts/app/admin/configuration/configuration.html', 'scripts/app/admin/configuration/configuration.html');
+        this.copyJs(webappDir + '/scripts/app/admin/configuration/_configuration.js', 'scripts/app/admin/configuration/configuration.js', this, {});
+        this.template(webappDir + '/scripts/app/admin/configuration/_configuration.controller.js', 'scripts/app/admin/configuration/configuration.controller.js', this, {});
+        // this.copy(webappDir + '/scripts/app/admin/docs/docs.html', 'scripts/app/admin/docs/docs.html');
+        // this.copyJs(webappDir + '/scripts/app/admin/docs/_docs.js', 'scripts/app/admin/docs/docs.js', this, {});
+        this.copyHtml(webappDir + '/scripts/app/admin/health/health.html', 'scripts/app/admin/health/health.html');
+        this.copyHtml(webappDir + '/scripts/app/admin/health/_health.modal.html', 'scripts/app/admin/health/health.modal.html');
+        this.copyJs(webappDir + '/scripts/app/admin/health/_health.js', 'scripts/app/admin/health/health.js', this, {});
+        this.template(webappDir + '/scripts/app/admin/health/_health.controller.js', 'scripts/app/admin/health/health.controller.js', this, {});
+        this.template(webappDir + '/scripts/app/admin/health/_health.modal.controller.js', 'scripts/app/admin/health/health.modal.controller.js', this, {});
+        // this.copyHtml(webappDir + '/scripts/app/admin/logs/logs.html', 'scripts/app/admin/logs/logs.html');
+        // this.copyJs(webappDir + '/scripts/app/admin/logs/_logs.js', 'scripts/app/admin/logs/logs.js', this, {});
+        // this.template(webappDir + '/scripts/app/admin/logs/_logs.controller.js', 'scripts/app/admin/logs/logs.controller.js', this, {});
+
+        this.copyHtml(webappDir + '/scripts/app/admin/user-management/user-management.html', 'scripts/app/admin/user-management/user-management.html');
+        this.copyHtml(webappDir + '/scripts/app/admin/user-management/_user-management-detail.html', 'scripts/app/admin/user-management/user-management-detail.html');
+        this.copyJs(webappDir + '/scripts/app/admin/user-management/_user-management.js', 'scripts/app/admin/user-management/user-management.js', this, {});
+        this.template(webappDir + '/scripts/app/admin/user-management/_user-management.controller.js', 'scripts/app/admin/user-management/user-management.controller.js', this, {});
+        this.template(webappDir + '/scripts/app/admin/user-management/_user-management-detail.controller.js', 'scripts/app/admin/user-management/user-management-detail.controller.js', this, {});
+    }
+
     this.copyHtml(webappDir + '/scripts/app/error/error.html', 'scripts/app/error/error.html');
     this.copyHtml(webappDir + '/scripts/app/error/accessdenied.html', 'scripts/app/error/accessdenied.html');
     this.copyJs(webappDir + '/scripts/app/entities/_entity.js', 'scripts/app/entities/entity.js', this, {});
@@ -318,25 +330,28 @@ Generator.prototype.app = function app() {
         'scripts/app/account/reset/finish/reset.finish.js',
         'scripts/app/account/reset/request/reset.request.controller.js',
         'scripts/app/account/reset/request/reset.request.js',
-        'scripts/app/admin/admin.js',
-        'scripts/app/admin/audits/audits.js',
-        'scripts/app/admin/audits/audits.controller.js',
-        'scripts/app/admin/configuration/configuration.js',
-        'scripts/app/admin/configuration/configuration.controller.js',
-        'scripts/app/admin/docs/docs.js',
-        'scripts/app/admin/health/health.js',
-        'scripts/app/admin/health/health.controller.js',
-        'scripts/app/admin/health/health.modal.controller.js',
-        'scripts/app/admin/logs/logs.js',
-        'scripts/app/admin/logs/logs.controller.js',
-        'scripts/app/admin/user-management/user-management-detail.controller.js',
-        'scripts/app/admin/user-management/user-management.controller.js',
-        'scripts/app/admin/user-management/user-management.js',
         'scripts/app/entities/entity.js',
         'scripts/app/error/error.js',
         'scripts/app/main/main.js',
         'scripts/app/main/main.controller.js'
     ];
+    if(this.enableAdministration) {
+        appScripts = appScripts.concat([
+            'scripts/app/admin/admin.js',
+            'scripts/app/admin/audits/audits.js',
+            'scripts/app/admin/audits/audits.controller.js',
+            'scripts/app/admin/configuration/configuration.js',
+            'scripts/app/admin/configuration/configuration.controller.js',
+            // 'scripts/app/admin/docs/docs.js',
+            'scripts/app/admin/health/health.js',
+            'scripts/app/admin/health/health.controller.js',
+            'scripts/app/admin/health/health.modal.controller.js',
+            // 'scripts/app/admin/logs/logs.js',
+            // 'scripts/app/admin/logs/logs.controller.js',
+            'scripts/app/admin/user-management/user-management-detail.controller.js',
+            'scripts/app/admin/user-management/user-management.controller.js',
+            'scripts/app/admin/user-management/user-management.js',]);
+    }
     if (this.enableTranslation) {
         appScripts = appScripts.concat([
             'bower_components/messageformat/locale/en.js',
@@ -382,6 +397,7 @@ Generator.prototype.app = function app() {
 
 
 	this.config.set('baseName', this.baseName);
+    this.config.set('enableAdministration', this.enableAdministration);
     this.config.set('authenticationType', this.authenticationType);
     this.config.set('enableTranslation', this.enableTranslation);
 };
