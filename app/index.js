@@ -367,6 +367,19 @@ Generator.prototype.app = function app() {
     this.write('index.html', this.indexFile);
 
 
+    // Create Test Javascript files
+    var testJsDir = 'webapp/';
+    this.template(testJsDir + '_karma.conf.js', 'spec/karma.conf.js');
+    this.template(testJsDir + 'spec/app/account/admin/health/_health.controller.spec.js', 'spec/app/account/health/health.controller.spec.js', this, {});
+    this.template(testJsDir + 'spec/app/account/login/_login.controller.spec.js', 'spec/app/account/login/login.controller.spec.js', this, {});
+    this.template(testJsDir + 'spec/app/account/password/_password.controller.spec.js', 'spec/app/account/password/password.controller.spec.js', this, {});
+    this.template(testJsDir + 'spec/app/account/password/_password.directive.spec.js', 'spec/app/account/password/password.directive.spec.js', this, {});
+    if (this.authenticationType == 'session') {
+        this.template(testJsDir + 'spec/app/account/sessions/_sessions.controller.spec.js', 'spec/app/account/sessions/sessions.controller.spec.js', this, {});
+    }
+    this.template(testJsDir + 'spec/app/account/settings/_settings.controller.spec.js', 'spec/app/account/settings/settings.controller.spec.js', this, {});
+    this.template(testJsDir + 'spec/components/auth/_auth.services.spec.js', 'spec/components/auth/auth.services.spec.js', this, {});
+
 
 	this.config.set('baseName', this.baseName);
     this.config.set('authenticationType', this.authenticationType);

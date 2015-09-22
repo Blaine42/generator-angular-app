@@ -1,4 +1,4 @@
-// Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= pkg.name %> <%= pkg.version %>
+// Generated on 2015-09-22 using generator-angular-app 0.1.0
 'use strict';
 var fs = require('fs');
 
@@ -45,23 +45,23 @@ module.exports = function (grunt) {
                     /angular-i18n/  // localizations are loaded dynamically
                 ]
             },
-            // test: {
-            //     src: 'src/test/javascript/karma.conf.js',
-            //     exclude: [/angular-i18n/, /angular-scenario/],
-            //     ignorePath: /\.\.\/\.\.\//, // remove ../../ from paths of injected javascripts
-            //     devDependencies: true,
-            //     fileTypes: {
-            //         js: {
-            //             block: /(([\s\t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi,
-            //             detect: {
-            //                 js: /'(.*\.js)'/gi
-            //             },
-            //             replace: {
-            //                 js: '\'{{filePath}}\','
-            //             }
-            //         }
-            //     }
-            // }
+            test: {
+                src: 'spec/karma.conf.js',
+                exclude: [/angular-i18n/, /angular-scenario/],
+                ignorePath: /\.\.\/\.\.\//, // remove ../../ from paths of injected javascripts
+                devDependencies: true,
+                fileTypes: {
+                    js: {
+                        block: /(([\s\t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi,
+                        detect: {
+                            js: /'(.*\.js)'/gi
+                        },
+                        replace: {
+                            js: '\'{{filePath}}\','
+                        }
+                    }
+                }
+            }
         },
         browserSync: {
             dev: {
@@ -97,8 +97,8 @@ module.exports = function (grunt) {
                     dot: true,
                     src: [
                         '.tmp',
-                        '<%%= yeoman.dist %>/*',
-                        '!<%%= yeoman.dist %>/.git*'
+                        '<%= yeoman.dist %>/*',
+                        '!<%= yeoman.dist %>/.git*'
                     ]
                 }]
             },
@@ -125,10 +125,10 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     src: [
-                        '<%%= yeoman.dist %>/scripts/**/*.js',
-                        '<%%= yeoman.dist %>/assets/styles/**/*.css',
-                        '<%%= yeoman.dist %>/assets/images/**/*.{png,jpg,jpeg,gif,webp,svg}',
-                        '<%%= yeoman.dist %>/assets/fonts/*'
+                        '<%= yeoman.dist %>/scripts/**/*.js',
+                        '<%= yeoman.dist %>/assets/styles/**/*.css',
+                        '<%= yeoman.dist %>/assets/images/**/*.{png,jpg,jpeg,gif,webp,svg}',
+                        '<%= yeoman.dist %>/assets/fonts/*'
                     ]
                 }
             }
@@ -136,12 +136,12 @@ module.exports = function (grunt) {
         useminPrepare: {
             html: './**/*.html',
             options: {
-                dest: '<%%= yeoman.dist %>',
+                dest: '<%= yeoman.dist %>',
                 flow: {
                     html: {
                         steps: {
                             js: ['concat', 'uglifyjs'],
-                            css: ['cssmin', useminAutoprefixer] // Let cssmin concat files so it corrects relative paths to fonts and images
+                            css: ['cssmin', /*useminAutoprefixer*/] // Let cssmin concat files so it corrects relative paths to fonts and images
                         },
                             post: {}
                         }
@@ -149,17 +149,17 @@ module.exports = function (grunt) {
             }
         },
         usemin: {
-            html: ['<%%= yeoman.dist %>/**/*.html'],
-            css: ['<%%= yeoman.dist %>/assets/styles/**/*.css'],
-            js: ['<%%= yeoman.dist %>/scripts/**/*.js'],
+            html: ['<%= yeoman.dist %>/**/*.html'],
+            css: ['<%= yeoman.dist %>/assets/styles/**/*.css'],
+            js: ['<%= yeoman.dist %>/scripts/**/*.js'],
             options: {
-                assetsDirs: ['<%%= yeoman.dist %>', '<%%= yeoman.dist %>/assets/styles', '<%%= yeoman.dist %>/assets/images', '<%%= yeoman.dist %>/assets/fonts'],
+                assetsDirs: ['<%= yeoman.dist %>', '<%= yeoman.dist %>/assets/styles', '<%= yeoman.dist %>/assets/images', '<%= yeoman.dist %>/assets/fonts'],
                 patterns: {
                     js: [
                         [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
                     ]
                 },
-                dirs: ['<%%= yeoman.dist %>']
+                dirs: ['<%= yeoman.dist %>']
             }
         },
         imagemin: {
@@ -168,7 +168,7 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: './/assets/images',
                     src: '**/*.{jpg,jpeg}', // we don't optimize PNG files as it doesn't work on Linux. If you are not on Linux, feel free to use '**/*.{png,jpg,jpeg}'
-                    dest: '<%%= yeoman.dist %>/assets/images'
+                    dest: '<%= yeoman.dist %>/assets/images'
                 }]
             }
         },
@@ -178,7 +178,7 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: './/assets/images',
                     src: '**/*.svg',
-                    dest: '<%%= yeoman.dist %>/assets/images'
+                    dest: '<%= yeoman.dist %>/assets/images'
                 }]
             }
         },
@@ -191,9 +191,9 @@ module.exports = function (grunt) {
                 src: ['scripts/app/**/*.html', 'scripts/components/**/*.html',],
                 dest: '.tmp/templates/templates.js',
                 options: {
-                    module: '<%= angularAppName%>',
+                    module: 'webappApp',
                     usemin: 'scripts/app.js',
-                    htmlmin: '<%%= htmlmin.dist.options %>'
+                    htmlmin: '<%= htmlmin.dist.options %>'
                 }
             }
         },
@@ -213,9 +213,9 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%%= yeoman.dist %>',
+                    cwd: '<%= yeoman.dist %>',
                     src: ['*.html'],
-                    dest: '<%%= yeoman.dist %>'
+                    dest: '<%= yeoman.dist %>'
                 }]
             }
         },
@@ -227,7 +227,7 @@ module.exports = function (grunt) {
                     dot: true,
                     flatten: true,
                     cwd: './',
-                    dest: '<%%= yeoman.dist %>/assets/fonts',
+                    dest: '<%= yeoman.dist %>/assets/fonts',
                     src: [
                       'bower_components/bootstrap/fonts/*.*'
                     ]
@@ -238,7 +238,7 @@ module.exports = function (grunt) {
                     expand: true,
                     dot: true,
                     cwd: './',
-                    dest: '<%%= yeoman.dist %>',
+                    dest: '<%= yeoman.dist %>',
                     src: [
                         '*.html',
                         'scripts/**/*.html',
@@ -248,7 +248,7 @@ module.exports = function (grunt) {
                 }, {
                     expand: true,
                     cwd: '.tmp/assets/images',
-                    dest: '<%%= yeoman.dist %>/assets/images',
+                    dest: '<%= yeoman.dist %>/assets/images',
                     src: [
                         'generated/*'
                     ]
@@ -265,7 +265,7 @@ module.exports = function (grunt) {
         },
         karma: {
             unit: {
-                configFile: 'src/test/javascript/karma.conf.js',
+                configFile: 'spec/karma.conf.js',
                 singleRun: true
             }
         },
@@ -296,7 +296,7 @@ module.exports = function (grunt) {
         },
         ngconstant: {
             options: {
-                name: '<%= angularAppName%>',
+                name: 'webappApp',
                 deps: false,
                 wrap: '"use strict";\n// DO NOT EDIT THIS FILE, EDIT THE GRUNT TASK NGCONSTANT SETTINGS INSTEAD WHICH GENERATES THIS FILE\n{%= __ngModule %}'
             },
@@ -306,7 +306,7 @@ module.exports = function (grunt) {
                 },
                 constants: {
                     ENV: 'dev',
-                    VERSION: '<%%= yeoman.version %>'
+                    VERSION: '<%= yeoman.version %>'
                 }
             },
             prod: {
@@ -315,7 +315,7 @@ module.exports = function (grunt) {
                 },
                 constants: {
                     ENV: 'prod',
-                    VERSION: '<%%= yeoman.version %>'
+                    VERSION: '<%= yeoman.version %>'
                 }
             }
         }
