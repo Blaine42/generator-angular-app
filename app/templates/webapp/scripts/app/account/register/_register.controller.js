@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('<%=angularAppName%>')
+angular.module('<%=angularAppName%>.account')
     .controller('RegisterController', function ($scope, <% if (enableTranslation){ %>$translate, <% } %>$timeout, Auth) {
         $scope.success = null;
         $scope.error = null;

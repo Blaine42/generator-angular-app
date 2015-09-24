@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('<%=angularAppName%>')
+angular.module('<%=angularAppName%>.admin')
     .config(function ($stateProvider) {
         $stateProvider
             .state('user-management', {
@@ -10,12 +10,8 @@ angular.module('<%=angularAppName%>')
                     authorities: ['ROLE_ADMIN'],
                     pageTitle: 'user-management.home.title'
                 },
-                views: {
-                    'content@': {
-                        templateUrl: 'scripts/app/admin/user-management/user-management.html',
-                        controller: 'UserManagementController'
-                    }
-                },
+                templateUrl: 'scripts/app/admin/user-management/user-management.html',
+                controller: 'UserManagementController',
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('user-management');
@@ -30,12 +26,8 @@ angular.module('<%=angularAppName%>')
                     authorities: ['ROLE_ADMIN'],
                     pageTitle: 'user-management.detail.title'
                 },
-                views: {
-                    'content@': {
-                        templateUrl: 'scripts/app/admin/user-management/user-management-detail.html',
-                        controller: 'UserManagementDetailController'
-                    }
-                },
+                templateUrl: 'scripts/app/admin/user-management/user-management-detail.html',
+                controller: 'UserManagementDetailController',
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('user-management');

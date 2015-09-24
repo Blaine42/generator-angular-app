@@ -9,11 +9,7 @@ angular.module('<%=angularAppName%>')
                 data: {
                     authorities: []
                 },
-                views: {
-                    'content@': {
-                        templateUrl: 'scripts/app/main/main.html',
-                        controller: 'LogoutController'
-                    }
-                }
+                templateUrl: 'scripts/app/main/main.html',
+                controller: 'LogoutController'
             });
     });

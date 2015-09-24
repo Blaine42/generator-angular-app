@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('<%=angularAppName%>')
+angular.module('<%=angularAppName%>.account')
     .controller('SettingsController', function ($scope, Principal, Auth<% if (enableTranslation){ %>, Language, $translate<% } %>) {
         $scope.success = null;
         $scope.error = null;

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('<%=angularAppName%>')
+angular.module('<%=angularAppName%>.account')
     .config(function ($stateProvider) {
         $stateProvider
             .state('register', {
@@ -10,12 +10,8 @@ angular.module('<%=angularAppName%>')
                     authorities: [],
                     pageTitle: 'register.title'
                 },
-                views: {
-                    'content@': {
-                        templateUrl: 'scripts/app/account/register/register.html',
-                        controller: 'RegisterController'
-                    }
-                },
+                templateUrl: 'scripts/app/account/register/register.html',
+                controller: 'RegisterController',
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('register');

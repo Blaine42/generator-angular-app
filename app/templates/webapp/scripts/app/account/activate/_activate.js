@@ -10,12 +10,8 @@ angular.module('<%=angularAppName%>')
                     authorities: [],
                     pageTitle: 'activate.title'
                 },
-                views: {
-                    'content@': {
-                        templateUrl: 'scripts/app/account/activate/activate.html',
-                        controller: 'ActivationController'
-                    }
-                },
+                templateUrl: 'scripts/app/account/activate/activate.html',
+                controller: 'ActivationController',
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('activate');

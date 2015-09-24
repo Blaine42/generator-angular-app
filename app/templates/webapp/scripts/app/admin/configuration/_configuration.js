@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('<%=angularAppName%>')
+angular.module('<%=angularAppName%>.admin')
     .config(function ($stateProvider) {
         $stateProvider
             .state('configuration', {
@@ -10,12 +10,8 @@ angular.module('<%=angularAppName%>')
                     authorities: ['ROLE_ADMIN'],
                     pageTitle: 'configuration.title'
                 },
-                views: {
-                    'content@': {
-                        templateUrl: 'scripts/app/admin/configuration/configuration.html',
-                        controller: 'ConfigurationController'
-                    }
-                },
+                templateUrl: 'scripts/app/admin/configuration/configuration.html',
+                controller: 'ConfigurationController',
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('configuration');

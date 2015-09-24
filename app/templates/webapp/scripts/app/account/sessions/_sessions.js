@@ -10,12 +10,8 @@ angular.module('<%=angularAppName%>')
                     authorities: ['ROLE_USER'],
                     pageTitle: 'global.menu.account.sessions'
                 },
-                views: {
-                    'content@': {
-                        templateUrl: 'scripts/app/account/sessions/sessions.html',
-                        controller: 'SessionsController'
-                    }
-                },
+                templateUrl: 'scripts/app/account/sessions/sessions.html',
+                controller: 'SessionsController',
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('sessions');

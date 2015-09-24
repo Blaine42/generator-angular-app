@@ -1,10 +1,16 @@
 'use strict';
 
-angular.module('<%=angularAppName%>')
+angular.module('<%=angularAppName%>.account', [])
     .config(function ($stateProvider) {
         $stateProvider
             .state('account', {
                 abstract: true,
-                parent: 'site'
+                parent: 'site',
+                url : '/account',
+                views: {
+                    'content@': {
+                        template: '<ui-view/>'
+                    }
+                },
             });
     });

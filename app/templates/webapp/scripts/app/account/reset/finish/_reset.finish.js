@@ -9,12 +9,8 @@ angular.module('<%=angularAppName%>')
                 data: {
                     authorities: []
                 },
-                views: {
-                    'content@': {
-                        templateUrl: 'scripts/app/account/reset/finish/reset.finish.html',
-                        controller: 'ResetFinishController'
-                    }
-                },
+                templateUrl: 'scripts/app/account/reset/finish/reset.finish.html',
+                controller: 'ResetFinishController',
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('reset');
