@@ -37,7 +37,7 @@ Generator.prototype.askFor = function askFor() {
 
     var cb        = this.async();
     var insight   = this.insight();
-    var questions = 3; // making questions a variable to avoid updating each question by hand when adding additional options
+    var questions = 5; // making questions a variable to avoid updating each question by hand when adding additional options
 
     var prompts = [
         {
@@ -81,17 +81,26 @@ Generator.prototype.askFor = function askFor() {
             name: 'enableTranslation',
             message: '(4/' + questions + ') Would you like to enable translation support with Angular Translate?',
             default: true
+        },
+        {
+            type: 'confirm',
+            name: 'enableBootswatch',
+            message: '(5/' + questions + ') Would you like to enable an bootswatch themes?',
+            default: true
         }
     ];
 
-    this.baseName           = this.config.get('baseName');
+    this.baseName             = this.config.get('baseName');
     this.enableAdministration = this.config.get('enableAdministration');
-    this.enableTranslation  = this.config.get('enableTranslation'); // this is enabled by default to avoid conflicts for existing applications
-    this.authenticationType = this.config.get('authenticationType');
+    this.enableTranslation    = this.config.get('enableTranslation'); // this is enabled by default to avoid conflicts for existing applications
+    this.authenticationType   = this.config.get('authenticationType');
+    this.enableBootswatch     = this.config.get('enableBootswatch');
 
 
     if (this.baseName != null &&
-		this.authenticationType != null) {
+        this.enableAdministration != null &&
+		this.authenticationType != null &&
+        this.enableBootswatch != null) {
         // If translation is not defined, it is enabled by default
         if (this.enableTranslation == null) {
             this.enableTranslation = true;
@@ -108,10 +117,11 @@ Generator.prototype.askFor = function askFor() {
                 insight.optOut = !props.insight;
             }
 
-            this.baseName = props.baseName;
+            this.baseName             = props.baseName;
             this.enableAdministration = props.enableAdministration;
-            this.enableTranslation = props.enableTranslation;
-			this.authenticationType = props.authenticationType;
+            this.enableTranslation    = props.enableTranslation;
+			this.authenticationType   = props.authenticationType;
+            this.enableBootswatch     = props.enableBootswatch;
 
             cb();
         }.bind(this));
@@ -278,6 +288,13 @@ Generator.prototype.app = function app() {
     this.template(webappDir + '/scripts/components/alert/_alert.service.js', 'scripts/components/alert/alert.service.js', this, {});
     this.template(webappDir + '/scripts/components/alert/_alert.directive.js', 'scripts/components/alert/alert.directive.js', this, {});
 
+    // bootswatch themes
+    if(this.enableBootswatch) {
+        this.template(webappDir + '/scripts/components/util/bootswatch/_bootswatch.service.js', 'scripts/components/util/bootswatch/bootswatch.service.js', this, {});
+        this.template(webappDir + '/scripts/components/util/bootswatch/_bootswatch.directive.js', 'scripts/components/util/bootswatch/bootswatch.directive.js', this, {});
+        this.template(webappDir + '/scripts/components/util/bootswatch/_bootswatch.controller.js', 'scripts/components/util/bootswatch/bootswatch.controller.js', this, {});
+    }
+
     // Index page
     this.indexFile = html.readFileAsString(path.join(this.sourceRoot(), webappDir + '_index.html'));
     this.engine = require('ejs').render;
@@ -377,6 +394,12 @@ Generator.prototype.app = function app() {
             'scripts/app/account/sessions/sessions.controller.js']);
     }
 
+    if(this.enableBootswatch) {
+        appScripts = appScripts.concat([
+            'scripts/components/util/bootswatch/bootswatch.service.js',
+            'scripts/components/util/bootswatch/bootswatch.directive.js',
+            'scripts/components/util/bootswatch/bootswatch.controller.js']);
+    }
 
     this.indexFile = html.appendScripts(this.indexFile, 'scripts/app.js', appScripts, {}, ['.tmp', 'webapp']);
     this.write('index.html', this.indexFile);
@@ -396,6 +419,7 @@ Generator.prototype.app = function app() {
     this.config.set('enableAdministration', this.enableAdministration);
     this.config.set('authenticationType', this.authenticationType);
     this.config.set('enableTranslation', this.enableTranslation);
+    this.config.set('enableBootswatch', this.enableBootswatch);
 };
 
 

@@ -6,7 +6,14 @@ angular.module('<%=angularAppName%>')<% if (authenticationType == 'oauth2' || a
             // Add authorization token to headers
             request: function (config) {
                 config.headers = config.headers || {};
-                var token = localStorageService.get('token');
+
+                <% if (enableBootswatch) { %>
+                // exclude bootswatch url
+                if(config.url.indexOf('api.bootswatch.com') === -1){
+                    var token = localStorageService.get('token');
+                }
+                <% } else { %>var token = localStorageService.get('token');<%} %>
+
                 <% if (authenticationType == 'oauth2') { %>
                 if (token && token.expires_at && token.expires_at > new Date().getTime()) {
                     config.headers.Authorization = 'Bearer ' + token.access_token;
