@@ -2,11 +2,16 @@
 
 angular.module('<%=angularAppName%>', ['LocalStorageModule', <% if (enableTranslation) { %>'tmh.dynamicLocale', 'pascalprecht.translate', <% } %>
                'ui.bootstrap', // for modal dialogs
-    'ngResource', 'ui.router', 'ngCookies', 'ngAria', 'ngCacheBuster', 'ngFileUpload', 'infinite-scroll'])
+    'ngResource', 'ui.router', 'ngCookies', 'ngAnimate', 'ngAria', 'ngCacheBuster', 'ngFileUpload', 'ngplus',
+
+    '<%=angularAppName%>.account'
+    <% if (enableAdministration) { %>,'<%=angularAppName%>.admin' <% } %>
+    ])
 
     .run(function ($rootScope, $location, $window, $http, $state, <% if (enableTranslation) { %>$translate, Language,<% } %> Auth, Principal, ENV, VERSION) {
         $rootScope.ENV = ENV;
         $rootScope.VERSION = VERSION;
+
         $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
             $rootScope.toState = toState;
             $rootScope.toStateParams = toStateParams;

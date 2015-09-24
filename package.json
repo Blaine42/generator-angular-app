@@ -7,6 +7,8 @@
   ],
   "dependencies": {
     "chalk": "^1.1.1",
+    "ejs": "^2.3.4",
+    "html-wiring": "^1.2.0",
     "insight": "^0.6.0",
     "mkdirp": "^0.5.1",
     "underscore.string": "^3.2.2",
