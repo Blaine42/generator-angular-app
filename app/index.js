@@ -260,9 +260,9 @@ Generator.prototype.app = function app() {
         this.copyJs(webappDir + '/scripts/app/admin/health/_health.js', 'scripts/app/admin/health/health.js', this, {});
         this.template(webappDir + '/scripts/app/admin/health/_health.controller.js', 'scripts/app/admin/health/health.controller.js', this, {});
         this.template(webappDir + '/scripts/app/admin/health/_health.modal.controller.js', 'scripts/app/admin/health/health.modal.controller.js', this, {});
-        // this.copyHtml(webappDir + '/scripts/app/admin/logs/logs.html', 'scripts/app/admin/logs/logs.html');
-        // this.copyJs(webappDir + '/scripts/app/admin/logs/_logs.js', 'scripts/app/admin/logs/logs.js', this, {});
-        // this.template(webappDir + '/scripts/app/admin/logs/_logs.controller.js', 'scripts/app/admin/logs/logs.controller.js', this, {});
+        this.copyHtml(webappDir + '/scripts/app/admin/logs/logs.html', 'scripts/app/admin/logs/logs.html');
+        this.copyJs(webappDir + '/scripts/app/admin/logs/_logs.js', 'scripts/app/admin/logs/logs.js', this, {});
+        this.template(webappDir + '/scripts/app/admin/logs/_logs.controller.js', 'scripts/app/admin/logs/logs.controller.js', this, {});
 
         this.copyHtml(webappDir + '/scripts/app/admin/user-management/user-management.html', 'scripts/app/admin/user-management/user-management.html');
         this.copyHtml(webappDir + '/scripts/app/admin/user-management/_user-management-detail.html', 'scripts/app/admin/user-management/user-management-detail.html');
@@ -363,8 +363,8 @@ Generator.prototype.app = function app() {
             'scripts/app/admin/health/health.js',
             'scripts/app/admin/health/health.controller.js',
             'scripts/app/admin/health/health.modal.controller.js',
-            // 'scripts/app/admin/logs/logs.js',
-            // 'scripts/app/admin/logs/logs.controller.js',
+            'scripts/app/admin/logs/logs.js',
+            'scripts/app/admin/logs/logs.controller.js',
             'scripts/app/admin/user-management/user-management-detail.controller.js',
             'scripts/app/admin/user-management/user-management.controller.js',
             'scripts/app/admin/user-management/user-management.js',]);
