@@ -26,7 +26,16 @@
         <div ng-show="{{ENV === 'dev'}}" class="development" ng-cloak></div>
         <div ui-view="navbar" ng-cloak></div>
         <div class="container">
-            <div class="well" ui-view="content"></div>
+            <div class="well shuffle-animation" ui-view="content"></div>
+
+            <div ngplus-overlay
+                 ngplus-overlay-delay-in="50"
+                 ngplus-overlay-delay-out="700"
+                 ngplus-overlay-animation="dissolve-animation">
+                <!-- <img src="assets/images/busy.gif"/> -->
+
+                	<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...
+            </div>
 
             <div class="footer">
                 <p translate="footer" class="pull-left">This is your footer</p>
