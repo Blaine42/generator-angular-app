@@ -7,6 +7,7 @@ angular.module('<%=angularAppName%>', ['LocalStorageModule', <% if (enableTransl
     .run(function ($rootScope, $location, $window, $http, $state, <% if (enableTranslation) { %>$translate, Language,<% } %> Auth, Principal, ENV, VERSION) {
         $rootScope.ENV = ENV;
         $rootScope.VERSION = VERSION;
+
         $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
             $rootScope.toState = toState;
             $rootScope.toStateParams = toStateParams;

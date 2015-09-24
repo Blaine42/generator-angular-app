@@ -48,7 +48,7 @@ module.exports = function (config) {
         exclude: [],
 
         preprocessors: {
-            './**/*.js': ['coverage']
+            'spec/**/*.js': ['coverage']
         },
 
         reporters: ['dots', 'jenkins', 'coverage', 'progress'],

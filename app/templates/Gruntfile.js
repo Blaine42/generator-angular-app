@@ -1,6 +1,7 @@
 // Generated on 2015-09-22 using generator-angular-app 0.1.0
 'use strict';
-var fs = require('fs');
+var fs = require('fs'),
+packagejs = require('./package.json');
 
 
 // usemin custom step
@@ -308,7 +309,7 @@ module.exports = function (grunt) {
                 },
                 constants: {
                     ENV: 'dev',
-                    VERSION: '<%%= yeoman.version %>'
+                    VERSION: packagejs.version
                 }
             },
             prod: {
@@ -317,7 +318,7 @@ module.exports = function (grunt) {
                 },
                 constants: {
                     ENV: 'prod',
-                    VERSION: '<%%= yeoman.version %>'
+                    VERSION: packagejs.version
                 }
             }
         }

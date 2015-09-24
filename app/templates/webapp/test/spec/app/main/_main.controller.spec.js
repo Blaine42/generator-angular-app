@@ -1,18 +1,18 @@
 
-describe('Controllers Tests ', function () {
+describe('Main Controllers Tests ', function () {
 
-    beforeEach(module('webappApp'));
+    var controller;
 
-    describe('MainController', function () {
-        var $scope;
+    beforeEach(module('<%=angularAppName%>'));
 
-        beforeEach(inject(function ($rootScope, $controller) {
-            $scope = $rootScope.$new();
-            $controller('MainController', {$scope: $scope});
-        }));
+    beforeEach(inject(function(_$rootScope_, _$controller_) {
+        $rootScope = _$rootScope_;
+        scope      = $rootScope.$new();
+        controller = _$controller_('MainController', { $scope: scope });
+    }));
 
-        it('title should be egual', function () {
-            expect($scope.title).to.equal('test');
-        });
+
+    it('should be created successfully', function () {
+        expect(controller).toBeDefined();
     });
 });

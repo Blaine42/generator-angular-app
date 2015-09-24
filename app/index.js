@@ -1,16 +1,16 @@
 'use strict';
 
 var
-    util   = require('util'),
-    path = require('path'),
+    util       = require('util'),
+    path       = require('path'),
     yeoman     = require('yeoman-generator'),
     packagejs  = require(__dirname + '/../package.json'),
     scriptBase = require(__dirname + '/../script-base'),
     _          = require('underscore.string'),
     chalk      = require('chalk'),
     mkdirp     = require('mkdirp'),
-    html = require("html-wiring"),
-    ejs = require('ejs')
+    html       = require("html-wiring"),
+    ejs        = require('ejs')
 	;
 
 
@@ -386,7 +386,11 @@ Generator.prototype.app = function app() {
     var testJsDir = 'test/';
     var testJsDirSrc = webappDir + '/' +testJsDir;
     this.template(testJsDirSrc + '_karma.conf.js', testJsDir + 'karma.conf.js');
+    this.template(testJsDirSrc + 'spec/app/_app.run.spec.js', testJsDir + 'spec/app/app.run.spec.js', this, {});
+    this.template(testJsDirSrc + 'spec/app/_app.config.spec.js', testJsDir + 'spec/app/appc.onfig.spec.js', this, {});
     this.template(testJsDirSrc + 'spec/app/main/_main.spec.js', testJsDir + 'spec/app/main/main.spec.js', this, {});
+    this.template(testJsDirSrc + 'spec/app/main/_main.controller.spec.js', testJsDir + 'spec/app/main/main.controller.spec.js', this, {});
+
 
 	this.config.set('baseName', this.baseName);
     this.config.set('enableAdministration', this.enableAdministration);
