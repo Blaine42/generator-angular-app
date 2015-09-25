@@ -37,7 +37,7 @@ Generator.prototype.askFor = function askFor() {
 
     var cb        = this.async();
     var insight   = this.insight();
-    var questions = 5; // making questions a variable to avoid updating each question by hand when adding additional options
+    var questions = 4; // making questions a variable to avoid updating each question by hand when adding additional options
 
     var prompts = [
         {
@@ -51,15 +51,9 @@ Generator.prototype.askFor = function askFor() {
             default: 'webapp'
         },
         {
-            type: 'confirm',
-            name: 'enableAdministration',
-            message: '(2/' + questions + ') Would you like to enable an administration?',
-            default: false
-        },
-        {
             type: 'list',
             name: 'authenticationType',
-            message: '(3/' + questions + ') Which *type* of authentication would you like to use?',
+            message: '(2/' + questions + ') Which *type* of authentication would you like to use?',
             choices: [
                 {
                     value: 'session',
@@ -79,26 +73,24 @@ Generator.prototype.askFor = function askFor() {
         {
             type: 'confirm',
             name: 'enableTranslation',
-            message: '(4/' + questions + ') Would you like to enable translation support with Angular Translate?',
+            message: '(3/' + questions + ') Would you like to enable translation support with Angular Translate?',
             default: true
         },
         {
             type: 'confirm',
             name: 'enableBootswatch',
-            message: '(5/' + questions + ') Would you like to enable an bootswatch themes?',
+            message: '(4/' + questions + ') Would you like to enable an bootswatch themes?',
             default: true
         }
     ];
 
     this.baseName             = this.config.get('baseName');
-    this.enableAdministration = this.config.get('enableAdministration');
     this.enableTranslation    = this.config.get('enableTranslation'); // this is enabled by default to avoid conflicts for existing applications
     this.authenticationType   = this.config.get('authenticationType');
     this.enableBootswatch     = this.config.get('enableBootswatch');
 
 
     if (this.baseName != null &&
-        this.enableAdministration != null &&
 		this.authenticationType != null &&
         this.enableBootswatch != null) {
         // If translation is not defined, it is enabled by default
@@ -118,7 +110,6 @@ Generator.prototype.askFor = function askFor() {
             }
 
             this.baseName             = props.baseName;
-            this.enableAdministration = props.enableAdministration;
             this.enableTranslation    = props.enableTranslation;
 			this.authenticationType   = props.authenticationType;
             this.enableBootswatch     = props.enableBootswatch;
@@ -132,8 +123,6 @@ Generator.prototype.askFor = function askFor() {
 Generator.prototype.app = function app() {
 
 	var webappDir = 'webapp/';
-
-	// mkdirp(webappDir);
 
     // Application name modified, using each technology's conventions
     this.angularAppName    = _.camelize(_.slugify(this.baseName)) + 'App';
@@ -149,7 +138,6 @@ Generator.prototype.app = function app() {
     this.copy('gitattributes', '.gitattributes');
 
     this.template('Gruntfile.js', 'Gruntfile.js', this, {});
-
 
     this.copy(webappDir + '/assets/styles/main.css', 'assets/styles/main.css');
 
@@ -245,32 +233,6 @@ Generator.prototype.app = function app() {
     this.copyJs(webappDir + '/scripts/app/account/settings/_settings.js', 'scripts/app/account/settings/settings.js', this, {});
     this.template(webappDir + '/scripts/app/account/settings/_settings.controller.js', 'scripts/app/account/settings/settings.controller.js', this, {});
 
-    if(this.enableAdministration) {
-        this.template(webappDir + '/scripts/app/admin/_admin.js', 'scripts/app/admin/admin.js', this, {});
-        this.copyHtml(webappDir + '/scripts/app/admin/audits/audits.html', 'scripts/app/admin/audits/audits.html');
-        this.copyJs(webappDir + '/scripts/app/admin/audits/_audits.js', 'scripts/app/admin/audits/audits.js', this, {});
-        this.template(webappDir + '/scripts/app/admin/audits/_audits.controller.js', 'scripts/app/admin/audits/audits.controller.js', this, {});
-        this.copyHtml(webappDir + '/scripts/app/admin/configuration/configuration.html', 'scripts/app/admin/configuration/configuration.html');
-        this.copyJs(webappDir + '/scripts/app/admin/configuration/_configuration.js', 'scripts/app/admin/configuration/configuration.js', this, {});
-        this.template(webappDir + '/scripts/app/admin/configuration/_configuration.controller.js', 'scripts/app/admin/configuration/configuration.controller.js', this, {});
-        // this.copy(webappDir + '/scripts/app/admin/docs/docs.html', 'scripts/app/admin/docs/docs.html');
-        // this.copyJs(webappDir + '/scripts/app/admin/docs/_docs.js', 'scripts/app/admin/docs/docs.js', this, {});
-        this.copyHtml(webappDir + '/scripts/app/admin/health/health.html', 'scripts/app/admin/health/health.html');
-        this.copyHtml(webappDir + '/scripts/app/admin/health/_health.modal.html', 'scripts/app/admin/health/health.modal.html');
-        this.copyJs(webappDir + '/scripts/app/admin/health/_health.js', 'scripts/app/admin/health/health.js', this, {});
-        this.template(webappDir + '/scripts/app/admin/health/_health.controller.js', 'scripts/app/admin/health/health.controller.js', this, {});
-        this.template(webappDir + '/scripts/app/admin/health/_health.modal.controller.js', 'scripts/app/admin/health/health.modal.controller.js', this, {});
-        this.copyHtml(webappDir + '/scripts/app/admin/logs/logs.html', 'scripts/app/admin/logs/logs.html');
-        this.copyJs(webappDir + '/scripts/app/admin/logs/_logs.js', 'scripts/app/admin/logs/logs.js', this, {});
-        this.template(webappDir + '/scripts/app/admin/logs/_logs.controller.js', 'scripts/app/admin/logs/logs.controller.js', this, {});
-
-        this.copyHtml(webappDir + '/scripts/app/admin/user-management/user-management.html', 'scripts/app/admin/user-management/user-management.html');
-        this.copyHtml(webappDir + '/scripts/app/admin/user-management/_user-management-detail.html', 'scripts/app/admin/user-management/user-management-detail.html');
-        this.copyJs(webappDir + '/scripts/app/admin/user-management/_user-management.js', 'scripts/app/admin/user-management/user-management.js', this, {});
-        this.template(webappDir + '/scripts/app/admin/user-management/_user-management.controller.js', 'scripts/app/admin/user-management/user-management.controller.js', this, {});
-        this.template(webappDir + '/scripts/app/admin/user-management/_user-management-detail.controller.js', 'scripts/app/admin/user-management/user-management-detail.controller.js', this, {});
-    }
-
     this.copyHtml(webappDir + '/scripts/app/error/error.html', 'scripts/app/error/error.html');
     this.copyHtml(webappDir + '/scripts/app/error/accessdenied.html', 'scripts/app/error/accessdenied.html');
     this.copyJs(webappDir + '/scripts/app/entities/_entity.js', 'scripts/app/entities/entity.js', this, {});
@@ -352,23 +314,7 @@ Generator.prototype.app = function app() {
         'scripts/app/main/main.js',
         'scripts/app/main/main.controller.js'
     ];
-    if(this.enableAdministration) {
-        appScripts = appScripts.concat([
-            'scripts/app/admin/admin.js',
-            'scripts/app/admin/audits/audits.js',
-            'scripts/app/admin/audits/audits.controller.js',
-            'scripts/app/admin/configuration/configuration.js',
-            'scripts/app/admin/configuration/configuration.controller.js',
-            // 'scripts/app/admin/docs/docs.js',
-            'scripts/app/admin/health/health.js',
-            'scripts/app/admin/health/health.controller.js',
-            'scripts/app/admin/health/health.modal.controller.js',
-            'scripts/app/admin/logs/logs.js',
-            'scripts/app/admin/logs/logs.controller.js',
-            'scripts/app/admin/user-management/user-management-detail.controller.js',
-            'scripts/app/admin/user-management/user-management.controller.js',
-            'scripts/app/admin/user-management/user-management.js',]);
-    }
+
     if (this.enableTranslation) {
         appScripts = appScripts.concat([
             'bower_components/messageformat/locale/en.js',
@@ -416,7 +362,6 @@ Generator.prototype.app = function app() {
 
 
 	this.config.set('baseName', this.baseName);
-    this.config.set('enableAdministration', this.enableAdministration);
     this.config.set('authenticationType', this.authenticationType);
     this.config.set('enableTranslation', this.enableTranslation);
     this.config.set('enableBootswatch', this.enableBootswatch);

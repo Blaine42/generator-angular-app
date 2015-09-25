@@ -5,7 +5,6 @@ angular.module('<%=angularAppName%>', ['LocalStorageModule', <% if (enableTransl
     'ngResource', 'ui.router', 'ngCookies', 'ngAnimate', 'ngAria', 'ngCacheBuster', 'ngFileUpload', 'ngplus',
 
     '<%=angularAppName%>.account'
-    <% if (enableAdministration) { %>,'<%=angularAppName%>.admin' <% } %>
     ])
 
     .run(function ($rootScope, $location, $window, $http, $state, <% if (enableTranslation) { %>$translate, Language,<% } %> Auth, Principal, ENV, VERSION) {

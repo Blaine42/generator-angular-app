@@ -29,7 +29,9 @@
         "jquery": "2.1.4",
         "json3": "3.3.2",
         "modernizr": "2.8.3",
-        "ng-file-upload": "7.0.17"
+        "ng-file-upload": "7.0.17",
+        "fakerest" : "1.0.11",
+        "sinon": "~1.17.0"
     },
     "devDependencies": {
         "angular-mocks": "1.4.5",
