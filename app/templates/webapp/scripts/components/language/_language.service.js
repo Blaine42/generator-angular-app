@@ -28,10 +28,6 @@ angular.module('<%=angularAppName%>')
  */
     .constant('LANGUAGES', [
         'en', 'fr'
-        //JHipster will add new languages here
+        //grunt will add new languages here
     ]
 );
-
-
-
-

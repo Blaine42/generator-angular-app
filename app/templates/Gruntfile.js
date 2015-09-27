@@ -262,14 +262,6 @@ module.exports = function (grunt) {
                         'generated/*'
                     ]
                 }]
-            },
-            generateOpenshiftDirectory: {
-                    expand: true,
-                    dest: 'deploy/openshift',
-                    src: [
-                        'pom.xml',
-                        'src/main/**'
-                ]
             }
         },
         karma: {
@@ -286,21 +278,6 @@ module.exports = function (grunt) {
                     src: '*.js',
                     dest: '.tmp/concat/scripts'
                 }]
-            }
-        },
-        buildcontrol: {
-            options: {
-                commit: true,
-                push: false,
-                connectCommits: false,
-                message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
-            },
-            openshift: {
-                options: {
-                    dir: 'deploy/openshift',
-                    remote: 'openshift',
-                    branch: 'master'
-                }
             }
         },
         ngconstant: {
@@ -370,41 +347,11 @@ module.exports = function (grunt) {
         'htmlmin'
     ]);
 
-
     grunt.registerTask('serve:prod', [
         'clean:server',
-        'browserSync:prod'
+        'browserSync:prod',
+        'watch'
     ]);
-
-	grunt.registerTask('appendSkipBower', 'Force skip of bower for Gradle', function () {
-
-		if (!grunt.file.exists(filepath)) {
-			// Assume this is a maven project
-			return true;
-		}
-
-		var fileContent = grunt.file.read(filepath);
-		var skipBowerIndex = fileContent.indexOf("skipBower=true");
-
-		if (skipBowerIndex != -1) {
-			return true;
-		}
-
-		grunt.file.write(filepath, fileContent + "\nskipBower=true\n");
-	});
-    //
-    // grunt.registerTask('buildOpenshift', [
-    //     'test',
-    //     'build',
-    //     'copy:generateOpenshiftDirectory',
-    // ]);
-    //
-    // grunt.registerTask('deployOpenshift', [
-    //     'test',
-    //     'build',
-    //     'copy:generateOpenshiftDirectory',
-    //     'buildcontrol:openshift'
-    // ]);
 
     grunt.registerTask('default', ['serve']);
 };
