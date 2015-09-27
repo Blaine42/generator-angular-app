@@ -347,7 +347,7 @@ Generator.prototype.app = function app() {
             'scripts/components/util/bootswatch/bootswatch.controller.js']);
     }
 
-    this.indexFile = html.appendScripts(this.indexFile, 'scripts/app.js', appScripts, {}, ['.tmp', 'webapp']);
+    this.indexFile = html.appendScripts(this.indexFile, 'scripts/app.js', appScripts, {}, ['.tmp', './']);
     this.write('index.html', this.indexFile);
 
 

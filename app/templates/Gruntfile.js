@@ -68,30 +68,36 @@ module.exports = function (grunt) {
             dev: {
                 bsFiles: {
                     src : [
-                        // './/**/*.html',
-                        // './/**/*.json',
-                        // './/assets/styles/**/*.css',
-                        // './/scripts/**/*.js',
-                        // './/assets/images/**/*.{png,jpg,jpeg,gif,webp,svg}',
-                        // 'tmp/**/*.{css,js}'
                         './**/*.html',
                         './**/*.json',
                         './assets/styles/**/*.css',
                         './scripts/**/*.js',
                         './assets/images/**/*.{png,jpg,jpeg,gif,webp,svg}'
                     ]
+                },
+                options: {
+                    watchTask: true,
+                    server: {
+                        baseDir: "./"
+                    },
                 }
             },
-            // options: {
-            //     watchTask: true,
-            //     proxy: "localhost:8080"
-            // }
-            options: {
-                watchTask: true,
-                server: {
-                    baseDir: "./"
+            prod: {
+                bsFiles: {
+                    src : [
+                        './dist/**/*.html',
+                        './dist/**/*.json',
+                        './dist/assets/styles/**/*.css',
+                        './dist/scripts/**/*.js',
+                        './dist/assets/images/**/*.{png,jpg,jpeg,gif,webp,svg}'
+                    ]
                 },
-                // proxy: "localhost:9000"
+                options: {
+                    watchTask: true,
+                    server: {
+                        baseDir: "./dist"
+                    },
+                }
             }
         },
         clean: {
@@ -144,7 +150,7 @@ module.exports = function (grunt) {
                     html: {
                         steps: {
                             js: ['concat', 'uglifyjs'],
-                            css: ['cssmin', /*useminAutoprefixer*/] // Let cssmin concat files so it corrects relative paths to fonts and images
+                            css: ['cssmin', useminAutoprefixer] // Let cssmin concat files so it corrects relative paths to fonts and images
                         },
                             post: {}
                         }
@@ -169,7 +175,7 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: './/assets/images',
+                    cwd: 'assets/images',
                     src: '**/*.{jpg,jpeg}', // we don't optimize PNG files as it doesn't work on Linux. If you are not on Linux, feel free to use '**/*.{png,jpg,jpeg}'
                     dest: '<%%= yeoman.dist %>/assets/images'
                 }]
@@ -179,7 +185,7 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: './/assets/images',
+                    cwd: 'assets/images',
                     src: '**/*.svg',
                     dest: '<%%= yeoman.dist %>/assets/images'
                 }]
@@ -194,7 +200,7 @@ module.exports = function (grunt) {
                 src: ['scripts/app/**/*.html', 'scripts/components/**/*.html',],
                 dest: '.tmp/templates/templates.js',
                 options: {
-                    module: 'webappApp',
+                    module: '<%= angularAppName %>',
                     usemin: 'scripts/app.js',
                     htmlmin: '<%%= htmlmin.dist.options %>'
                 }
@@ -328,7 +334,7 @@ module.exports = function (grunt) {
         'clean:server',
         'wiredep',
         'ngconstant:dev',
-        'browserSync',
+        'browserSync:dev',
         'watch'
     ]);
 
@@ -364,6 +370,12 @@ module.exports = function (grunt) {
         'htmlmin'
     ]);
 
+
+    grunt.registerTask('serve:prod', [
+        'clean:server',
+        'browserSync:prod'
+    ]);
+
 	grunt.registerTask('appendSkipBower', 'Force skip of bower for Gradle', function () {
 
 		if (!grunt.file.exists(filepath)) {
@@ -380,19 +392,19 @@ module.exports = function (grunt) {
 
 		grunt.file.write(filepath, fileContent + "\nskipBower=true\n");
 	});
-
-    grunt.registerTask('buildOpenshift', [
-        'test',
-        'build',
-        'copy:generateOpenshiftDirectory',
-    ]);
-
-    grunt.registerTask('deployOpenshift', [
-        'test',
-        'build',
-        'copy:generateOpenshiftDirectory',
-        'buildcontrol:openshift'
-    ]);
+    //
+    // grunt.registerTask('buildOpenshift', [
+    //     'test',
+    //     'build',
+    //     'copy:generateOpenshiftDirectory',
+    // ]);
+    //
+    // grunt.registerTask('deployOpenshift', [
+    //     'test',
+    //     'build',
+    //     'copy:generateOpenshiftDirectory',
+    //     'buildcontrol:openshift'
+    // ]);
 
     grunt.registerTask('default', ['serve']);
 };
