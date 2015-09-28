@@ -85,6 +85,7 @@ module.exports = function (grunt) {
             prod: {
                 bsFiles: {
                     src : [
+                        './dist/**/*.html',
                         './dist/**/*.json',
                         './dist/assets/styles/**/*.css',
                         './dist/scripts/**/*.js',
@@ -249,11 +250,11 @@ module.exports = function (grunt) {
                     dest: '<%%= yeoman.dist %>',
                     src: [
                         '*.html',
-                        //'scripts/**/*.html',
+                        'scripts/**/*.html',
                         'assets/images/**/*.{png,gif,webp,jpg,jpeg,svg}',
                         'assets/fonts/*',
                         'i18n/**/*.json',
-                        'bower_components/angular-i18n/**/*.js'
+                        'bower_components/angular-i18n/angular-locale_en.js'
                     ]
                 }, {
                     expand: true,

@@ -235,7 +235,6 @@ Generator.prototype.app = function app() {
 
     this.copyHtml(webappDir + '/scripts/app/error/error.html', 'scripts/app/error/error.html');
     this.copyHtml(webappDir + '/scripts/app/error/accessdenied.html', 'scripts/app/error/accessdenied.html');
-    this.copyJs(webappDir + '/scripts/app/entities/_entity.js', 'scripts/app/entities/entity.js', this, {});
     this.copyJs(webappDir + '/scripts/app/error/_error.js', 'scripts/app/error/error.js', this, {});
     this.copyHtml(webappDir + '/scripts/app/main/main.html', 'scripts/app/main/main.html');
     this.copyJs(webappDir + '/scripts/app/main/_main.js', 'scripts/app/main/main.js', this, {});
@@ -309,7 +308,6 @@ Generator.prototype.app = function app() {
         'scripts/app/account/reset/finish/reset.finish.js',
         'scripts/app/account/reset/request/reset.request.controller.js',
         'scripts/app/account/reset/request/reset.request.js',
-        'scripts/app/entities/entity.js',
         'scripts/app/error/error.js',
         'scripts/app/main/main.js',
         'scripts/app/main/main.controller.js'
